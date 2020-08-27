@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:81
+
+@contentType= application/json
+
+### Create Account
+GET {{baseUrl}}/signup
+Content-Type: {{contentType}}
+
+{
+ "email": "dev32@dev.com.br",
+ "password" : "!Password",
+ "passwordConfirmation": "!Password"
+} 
