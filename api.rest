@@ -2,12 +2,21 @@
 
 @contentType= application/json
 
-### Create Account
-GET {{baseUrl}}/signup
+### Sign UP
+POST {{baseUrl}}/signup
 Content-Type: {{contentType}}
 
 {
- "email": "dev32@dev.com.br",
- "password" : "!Password",
- "passwordConfirmation": "!Password"
-} 
+ "email": "dev@dev.com.br",
+ "password" : "!Password1",
+ "passwordConfirmation": "!Password1"
+}
+
+### Sign In
+POST {{baseUrl}}/signin
+Content-Type: {{contentType}}
+
+{
+ "email": "dev@dev.com.br",
+ "password" : "!Password1"
+}
