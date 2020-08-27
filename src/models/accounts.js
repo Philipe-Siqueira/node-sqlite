@@ -1,4 +1,3 @@
-const {Model} = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
@@ -27,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
   sequelize,
   modelName: 'Accounts'
  });
+
+Accounts.associate = (models) => {
+  Accounts.hasOne(models.People, { foreignKey: 'account_id', as: 'account' });
+}
 
  Accounts.prototype.toJSON = function () {
   const values = { ...this.get() };

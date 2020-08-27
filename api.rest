@@ -1,8 +1,13 @@
+##############################
+# Autor: Philipe Siqueira    #
+# Version: 0.0.1             #
+##############################
+
 @baseUrl = http://localhost:81
 
 @contentType= application/json
 
-### Sign UP
+### Sign UP (Create)
 POST {{baseUrl}}/signup
 Content-Type: {{contentType}}
 
@@ -20,3 +25,38 @@ Content-Type: {{contentType}}
  "email": "dev@dev.com.br",
  "password" : "!Password1"
 }
+
+### Read People
+GET {{baseUrl}}/people
+Content-Type: {{contentType}}
+
+
+### Read People (Find One)
+GET {{baseUrl}}/people/1
+Content-Type: {{contentType}}
+
+### Create People
+POST {{baseUrl}}/people
+Content-Type: {{contentType}}
+
+{
+ "name": "Philipe",
+ "surname" : "Siqueira",
+ "age": 34,
+ "gender": "Male"
+}
+
+### Update People
+PUT {{baseUrl}}/people/1
+Content-Type: {{contentType}}
+
+{
+ "name": "Developer",
+ "surname" : "Siqueira",
+ "age": 18,
+ "gender": "Female"
+}
+
+### Delete People (Find One)
+DELETE {{baseUrl}}/people/1
+Content-Type: {{contentType}}
