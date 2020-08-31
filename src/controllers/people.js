@@ -4,7 +4,7 @@ const { People } = require('../models');
 const { rules } = require('../config/validation');
 
 exports.create = (request, response) => {
-  const account_id = 1; //request.id;
+  const account_id = request.id;
   const { name, surname, age, gender } = request.body;
   People.create({ name, surname, age, gender, account_id })
   .then(people => {
@@ -19,11 +19,12 @@ exports.create = (request, response) => {
  };
 
  exports.read = (request, response) => {
+  const account_id = request.id;
   return response.status(200).json('People test');
  };
 
  exports.findOne = async (request, response) => {
-  const account_id = 1; //request.id;
+  const account_id = request.id;
   const { id } = request.params;
   const people = await People.findOne({ where: {id, account_id}});
   if(!people) return response.status(200).json('Not found.');
@@ -31,7 +32,7 @@ exports.create = (request, response) => {
  };
 
  exports.update = (request, response) => {
-  const account_id = 1; //request.id;
+  const account_id = request.id;
   const { id } = request.params;
   const { body } = request;
   const fields = ['name', 'surname', 'age', 'gender'];
@@ -55,7 +56,7 @@ exports.create = (request, response) => {
  };
 
  exports.delete = (request, response) => {
-  const account_id = 1; //request.id;
+  const account_id = request.id;
   const { id } = request.params;
   People.findOne({ where: {id, account_id}})
   .then(people => {

@@ -5,7 +5,9 @@
 
 @baseUrl = http://localhost:81
 
-@contentType= application/json
+@contentType = application/json
+
+@token =
 
 ### Sign UP (Create)
 POST {{baseUrl}}/signup
@@ -29,7 +31,7 @@ Content-Type: {{contentType}}
 ### Read People
 GET {{baseUrl}}/people
 Content-Type: {{contentType}}
-
+Authorization: Bearer {{token}}
 
 ### Read People (Find One)
 GET {{baseUrl}}/people/1
@@ -38,6 +40,7 @@ Content-Type: {{contentType}}
 ### Create People
 POST {{baseUrl}}/people
 Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
 
 {
  "name": "Philipe",
@@ -49,6 +52,7 @@ Content-Type: {{contentType}}
 ### Update People
 PUT {{baseUrl}}/people/1
 Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
 
 {
  "name": "Developer",
@@ -58,5 +62,5 @@ Content-Type: {{contentType}}
 }
 
 ### Delete People (Find One)
-DELETE {{baseUrl}}/people/1
+DELETE {{baseUrl}}/people/5
 Content-Type: {{contentType}}

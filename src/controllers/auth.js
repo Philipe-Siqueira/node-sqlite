@@ -10,6 +10,7 @@ exports.findAll = (request, response) => {
 
 exports.accountSignIn = (request, response) => {
   const {email, password} = request.body;
+
   // Schema de Validação
   let schema = yup.object().shape({
     email: rules.email,
@@ -25,7 +26,8 @@ exports.accountSignIn = (request, response) => {
 
   const token = generateJwt({id: account.id});
   const refreshToken = generateRefreshJwt({id: account.id});
-  return response.status(200).json({ account, token, refreshToken });
+  const decoded = verifyJwt(token);
+  return response.status(200).json({ account, token, refreshToken, exp: decoded.exp });
  })
  .catch((err) => {
   return response.status(401).json({message: err.errors, key: err.path});
@@ -33,7 +35,6 @@ exports.accountSignIn = (request, response) => {
 }
 exports.accountSignUp = (request, response) => {
  const {email, password, passwordConfirmation} = request.body;
-
  // Schema de Validação
  let schema = yup.object().shape({
   email: rules.email,
@@ -48,7 +49,8 @@ exports.accountSignUp = (request, response) => {
    .then(account => {
     const token = generateJwt({id: account.id});
     const refreshToken = generateRefreshJwt({id: account.id});
-    return response.status(201).json({ account, token, refreshToken });
+    const decoded = verifyJwt(token);
+    return response.status(201).json({ account, token, refreshToken, token_expire: decoded.exp });
    })
    .catch(err => {
     return response.status(500).json({
