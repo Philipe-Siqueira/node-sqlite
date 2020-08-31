@@ -4,7 +4,7 @@ const authController = require('./controllers/auth');
 const peopleController = require('./controllers/people');
 const checkToken = require('./middleware/auth');
 
-router.get('/auth', authController.findAll);
+router.get('/auth', authController.accountRefresh);
 
 router.post('/signup', authController.accountSignUp);
 router.post('/signin', authController.accountSignIn);

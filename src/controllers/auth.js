@@ -4,8 +4,26 @@ const { Accounts } = require('../models');
 const { generateJwt, verifyJwt, generateRefreshJwt, verifyRefreshJwt} = require('../config/auth')
 const { rules } = require('../config/validation');
 
-exports.findAll = (request, response) => {
- return response.status(200).json('Sign In');
+exports.accountRefresh = (request, response) => {
+  const token = getTokenFromHeaders(request.headers.authorization);
+  if (!token) {
+    return response.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    const decoded = verifyRefreshJwt(token);
+    Accounts.findOne(decoded.id)
+    .then((account) => {
+      const token = generateJwt({id: account.id});
+      const refreshToken = generateRefreshJwt({id: account.id});
+      const decoded = verifyJwt(token);
+      return response.status(201).json({ account, token, refreshToken, token_expire: decoded.exp });
+    })
+    .catch((err) => {
+      return response.status(401).json('invalid credentials');
+    });
+  } catch (error) {
+    return response.status(401).json('invalid credentials');
+  }
 };
 
 exports.accountSignIn = (request, response) => {

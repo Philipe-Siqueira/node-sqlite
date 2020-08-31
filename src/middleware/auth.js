@@ -1,11 +1,11 @@
-const { verifyJwt } = require('../config/auth');
+const { verifyJwt, getTokenFromHeaders } = require('../config/auth');
 
 const checkJwt = (request, response, next) => {
-  const authHeader = request.headers.authorization;
-  if (!authHeader) {
+  const token = getTokenFromHeaders(request.headers.authorization);
+
+  if (!token) {
     return response.status(401).json({ message: 'Token not found' });
   }
-  const [, token] = authHeader.split(' ');
   try {
     const decoded = verifyJwt(token);
     request.account_id = decoded.id;
