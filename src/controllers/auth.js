@@ -19,10 +19,10 @@ exports.accountRefresh = (request, response) => {
       return response.status(201).json({ account, token, refreshToken, token_expire: decoded.exp });
     })
     .catch((err) => {
-      return response.status(401).json('invalid credentials');
+      return response.status(401).json({message: 'invalid credentials'});
     });
   } catch (error) {
-    return response.status(401).json('invalid credentials');
+    return response.status(401).json({message: 'invalid credentials'});
   }
 };
 
@@ -40,7 +40,7 @@ exports.accountSignIn = (request, response) => {
   const account = await Accounts.findOne({ where: {email}});
   // Validate passaword
   const passwordMatch = account ? bcrypt.compareSync(password, account.password_hash) : null;
-  if(!passwordMatch) return response.status(401).json('invalid credentials');
+  if(!passwordMatch) return response.status(401).json({message: 'invalid credentials'});
 
   const token = generateJwt({id: account.id});
   const refreshToken = generateRefreshJwt({id: account.id});
@@ -82,4 +82,3 @@ exports.accountSignUp = (request, response) => {
  });
 
 }
-
