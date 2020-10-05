@@ -1,6 +1,6 @@
 require('dotenv').config({
- path: process.env.NODE_ENV === "development" 
- ? ".env.dev" 
+ path: process.env.NODE_ENV === "development"
+ ? ".env.dev"
  : ".env"
 });
 const express = require('express');
@@ -23,10 +23,10 @@ const HOST = process.env.NODE_APP_HOST || '0.0.0.0';
 const URL = process.env.NODE_APP_URL || 'http://localhost';
 
 database.sequelize.sync().then(() => {  
- app.listen(PORT, () => {    
-  console.log(`Service: ${appName}. Active for ${HOST} on Address: ${URL}:${PORT}`);  
- });
+  app.listen(PORT, () => {    
+    console.log(`Service: ${appName}. Active for ${HOST} on Address: ${URL}:${PORT}`);  
+  });
 })
- .catch(err => {
+.catch(err => {
   console.error('Unable to connect to the database:', err);
- });
+});
