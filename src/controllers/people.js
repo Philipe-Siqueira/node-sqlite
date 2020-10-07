@@ -1,10 +1,9 @@
 const yup = require('yup');
 const { People } = require('../models');
-
 const { rules } = require('../config/validation');
 
 exports.create = (request, response) => {
-  const account_id = request.id;
+  const { account_id } = request;
   const { name, surname, age, gender } = request.body;
   People.create({ name, surname, age, gender, account_id })
   .then(people => {
@@ -12,19 +11,19 @@ exports.create = (request, response) => {
   })
   .catch(err => {
     return response.status(500).json({
-     message: err.errors[0].message,
-     key: err.errors[0].path
+      message: err.errors[0].message,
+      key: err.errors[0].path
     });
-   });
- };
+  });
+};
 
  exports.read = (request, response) => {
-  const account_id = request.id;
-  return response.status(200).json('People test');
+  const { account_id } = request;
+  return response.status(200).json({ message: account_id, status: 200 });
  };
 
  exports.findOne = async (request, response) => {
-  const account_id = request.id;
+  const { account_id } = request;
   const { id } = request.params;
   const people = await People.findOne({ where: {id, account_id}});
   if(!people) return response.status(200).json('Not found.');
@@ -32,7 +31,7 @@ exports.create = (request, response) => {
  };
 
  exports.update = (request, response) => {
-  const account_id = request.id;
+  const { account_id } = request;
   const { id } = request.params;
   const { body } = request;
   const fields = ['name', 'surname', 'age', 'gender'];
@@ -56,7 +55,7 @@ exports.create = (request, response) => {
  };
 
  exports.delete = (request, response) => {
-  const account_id = request.id;
+  const { account_id } = request;
   const { id } = request.params;
   People.findOne({ where: {id, account_id}})
   .then(people => {

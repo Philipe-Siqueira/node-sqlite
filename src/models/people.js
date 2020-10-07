@@ -19,11 +19,13 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
    },
-   age: {
-    type: DataTypes.INTEGER,
+   birth: {
+    type: DataTypes.DATE,
     allowNull: false,
     validate: {
-      min: 18,
+      isDate: true,
+      isAfter: "1930-01-01",
+      isBefore:"2015-01-01",
     }
    },
    gender: {
